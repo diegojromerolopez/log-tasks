@@ -76,6 +76,8 @@ python3 hourly_task.py log_reader/tests/data/input-file-10000.txt Dekevious Zoea
 ## Tests
 Tests developed with pytest.
 
+To run them, please, set your current directory to this repository root directory and type:
+
 ```bash
 pytest
 ```
