@@ -33,8 +33,8 @@ Run the following command to install requirements:
 
 ## Tasks
 
-**Move your current working directory to the root directory of this project**,
-i.e. the root directory of this repository (where this README.md file resides).
+**Move to the root directory of this project**,
+i.e. the root directory of this repository should be your current working directory.
 
 Note that running the scripts without parameters show how to use them.
 
@@ -44,13 +44,15 @@ Given the name of a file (with the format described above), an  init_datetime , 
 returns a list of hostnames connected to the given host during the given period.
 
 ```bash
-python3 traffic_to_host.py log_reader/tests/data/input-file-10000.txt <start timestamp> <end timestamp> <Host to monitor traffic>
+python3 traffic_to_host.py -f log_reader/tests/data/input-file-10000.txt -init <start timestamp> -end <end timestamp> -host <Host to monitor traffic>
 ```
+
+Note that if there is no hostnames connected to the given host, nothing will be printed by standard output.
 
 #### Example
 
 ```bash
-$ python3 traffic_to_host.py log_reader/tests/data/input-file-10000.txt 1565647313867 1565733331098 Zoeann
+$ python3 traffic_to_host.py -f log_reader/tests/data/input-file-10000.txt -init 1565647313867 -end 1565733331098 -host Zoeann
 ```
 Output:
 ```bash
@@ -74,7 +76,7 @@ Maigen
 ### Hourly task
 
 ```bash
-$ python3 hourly_task.py log_reader/tests/data/input-file-10000.txt <watched_destination_host> <watched_source_host>
+$ python3 hourly_task.py -f log_reader/tests/data/input-file-10000.txt -wdh <watched_destination_host> -wsh <watched_source_host>
 ```
 
 Where:
@@ -86,7 +88,7 @@ Please, take in account that this script will not output anything if you don't h
 #### Example
 
 ```bash
-$ python3 hourly_task.py log_reader/tests/data/input-file-10000.txt Dekevious Zoeann
+$ python3 hourly_task.py -f log_reader/tests/data/input-file-10000.txt -wdh Dekevious -wsh Zoeann
 ```
 
 ## Tests
