@@ -4,15 +4,15 @@ from log_reader.tasks.hourly_task import HourlyTask
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-
 if __name__ == '__main__':
-    # The tool should both parse previously written log files and terminate or collect input from a new log file while it's being written and run indefinitely.
+    # The tool should both parse previously written log files and terminate or collect input from a new log file
+    # while it's being written and run indefinitely.
     # The script will output, once every hour:
-    # a list of hostnames connected to a given (configurable) host during the last hour (watched_destination_host in the code)
-    # a list of hostnames that received connections from a given (configurable) host during the last hour (watched_source_host in the code)
-    # the hostname that generated most connections in the last hour
-
-    # Remember to set in your crontab the following line to make it run each hour (at minute 0):
+    # a list of host names connected to a given (configurable) host during the last hour (i.e. watched_destination_host)
+    # a list of host names that received connections from a given (configurable)
+    # host during the last hour (i.e. watched_source_host) the hostname that generated most connections in the last hour
+    #
+    #  Remember to set in your crontab the following line to make it run each hour (at minute 0):
     # 0 * * * * python 3 <file_path_of_log_file>
     try:
         file_path = sys.argv[1]
@@ -28,9 +28,6 @@ if __name__ == '__main__':
     start_timestamp = datetime.timestamp(start_date)
     end_date = datetime.now()
     end_timestamp = datetime.timestamp(end_date)
-    
-    #start_timestamp = 1565647313867
-    #end_timestamp = 1565733331098
 
     task = HourlyTask(file_path, start_timestamp, end_timestamp, watched_destination_host, watched_source_host)
     result = task.run()
@@ -50,7 +47,9 @@ if __name__ == '__main__':
         print(f"No hosts received connections from {watched_source_host} during the last hour.")
 
     if len(result.outgoing_connection_count_by_host) > 0:
-        host_with_max_outgoing_connections, max_outgoing_connections = max(result.outgoing_connection_count_by_host.items(), key=operator.itemgetter(1))
-        print(f"Host that generated most connections in the last hour: {host_with_max_outgoing_connections} ({max_outgoing_connections} outgoing connections).")
+        host_with_max_outgoing_connections, max_outgoing_connections = max(
+            result.outgoing_connection_count_by_host.items(), key=operator.itemgetter(1))
+        print(
+            f"Host that generated most connections in the last hour: {host_with_max_outgoing_connections} ({max_outgoing_connections} outgoing connections).")
     else:
         print(f"No hosts generated connections in the last hour.")

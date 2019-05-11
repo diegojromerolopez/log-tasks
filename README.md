@@ -7,13 +7,29 @@ These two tasks show how to deal with log files in Python3.
 ## Requirements
 
 - Python3 version 3.6 or later (you should have it in your OS).
-- pytest for python3
+- Packages included in [requirements.txt](requirements.txt).
 
-Run the following command to install pytest:
+You should use a virtualenv or some tool to avoid installing packages in your system.
+
+This will create a python3 virtualenv with the name venv:
 
 ```bash
-pip3 install pytest
+$ virtualenv -p python3 venv
 ```
+
+Activate the virtualenv
+
+```bash
+$ ./venv/bin/activate
+```
+
+Run the following command to install requirements:
+
+```bash
+(venv)$ pip install requirements.txt
+```
+
+(make sure pip is using python3)
 
 ## Tasks
 
@@ -34,7 +50,7 @@ python3 traffic_to_host.py log_reader/tests/data/input-file-10000.txt <start tim
 #### Example
 
 ```bash
-python3 traffic_to_host.py log_reader/tests/data/input-file-10000.txt 1565647313867 1565733331098 Zoeann
+$ python3 traffic_to_host.py log_reader/tests/data/input-file-10000.txt 1565647313867 1565733331098 Zoeann
 ```
 Output:
 ```bash
@@ -58,7 +74,7 @@ Maigen
 ### Hourly task
 
 ```bash
-python3 hourly_task.py log_reader/tests/data/input-file-10000.txt <watched_destination_host> <watched_source_host>
+$ python3 hourly_task.py log_reader/tests/data/input-file-10000.txt <watched_destination_host> <watched_source_host>
 ```
 
 Where:
@@ -70,14 +86,16 @@ Please, take in account that this script will not output anything if you don't h
 #### Example
 
 ```bash
-python3 hourly_task.py log_reader/tests/data/input-file-10000.txt Dekevious Zoeann
+$ python3 hourly_task.py log_reader/tests/data/input-file-10000.txt Dekevious Zoeann
 ```
 
 ## Tests
 Tests developed with pytest.
 
-To run them, please, set your current directory to this repository root directory and type:
+To run them, please, set your current directory to this repository root directory and type the following command.
 
 ```bash
-pytest
+$ pytest
 ```
+
+Please note that pytest is a requirement for this project (it is already included in requirements.txt).

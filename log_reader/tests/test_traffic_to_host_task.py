@@ -18,8 +18,7 @@ def test_run():
 
     task = TrafficToHostTask(test_log_path, start_timestamp, end_timestamp, desired_destination_host)
     result = task.run()
-    expected_hosts_connected_to_desired_host = set(
-        ['Kalun', 'Zaid', 'Sheylynn', 'Kayjah', 'Wuilber', 'Temon', 'Brydin', 'Osualdo',
-        'Djamila', 'Maigen', 'Krikor', 'Aleece', 'Desaree', 'Augustina', 'Danyae']
-    )
+    expected_hosts_connected_to_desired_host = {'Kalun', 'Zaid', 'Sheylynn', 'Kayjah', 'Wuilber', 'Temon', 'Brydin',
+                                                'Osualdo', 'Djamila', 'Maigen', 'Krikor', 'Aleece', 'Desaree',
+                                                'Augustina', 'Danyae'}
     assert expected_hosts_connected_to_desired_host == result.hosts_connected_to_desired_host

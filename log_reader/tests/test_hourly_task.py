@@ -19,11 +19,15 @@ def test_run():
     task = HourlyTask(test_log_path, start_timestamp, end_timestamp, watched_destination_host, watched_source_host)
     result = task.run()
 
-    expected_hosts_connected_to_watched_destination_host = set(["Akaycia", "Tyjai", "Aubreanna", "Saraii", "Syrae", "Sarenity", "Breylyn", "Caniyah"])
+    expected_hosts_connected_to_watched_destination_host = {"Akaycia", "Tyjai", "Aubreanna", "Saraii", "Syrae",
+                                                            "Sarenity", "Breylyn", "Caniyah"}
     assert expected_hosts_connected_to_watched_destination_host == result.hosts_connected_to_watched_destination_host
     assert len(result.hosts_receiving_connections_from_watched_source_host) == 0
 
-    host_with_max_outgoing_connections, max_outgoing_connections = max(result.outgoing_connection_count_by_host.items(), key=operator.itemgetter(1))
+    host_with_max_outgoing_connections, max_outgoing_connections =\
+        max(result.outgoing_connection_count_by_host.items(), key=operator.itemgetter(1))
     assert "Dristen" == host_with_max_outgoing_connections
     assert 7 == max_outgoing_connections
     assert 6285 == len(result.outgoing_connection_count_by_host)
+
+
