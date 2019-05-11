@@ -6,7 +6,14 @@ These two tasks show how to deal with log files in Python3.
 
 ## Requirements
 
-Python3 version 3.6 or later.
+- Python3 version 3.6 or later (you should have it in your OS).
+- pytest for python3
+
+Run the following command to install pytest:
+
+```bash
+pip3 install pytest
+```
 
 ## Tasks
 
@@ -66,3 +73,9 @@ Please, take in account that this script will not output anything if you don't h
 python3 hourly_task.py log_reader/tests/data/input-file-10000.txt Dekevious Zoeann
 ```
 
+## Tests
+Tests developed with pytest.
+
+```bash
+pytest
+```
