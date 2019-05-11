@@ -8,14 +8,16 @@ These two tasks show how to deal with log files in Python3.
 
 Python3 version 3.6 or later.
 
-## Use
+## Tasks
 
 **Move your current working directory to the root directory of this project**,
 i.e. the root directory of this repository (where this README.md file resides).
 
+Note that running the scripts without parameters show how to use them.
+
 ### Traffic to host
 
-Given the name of a file (with the format described above), an  init_datetime , an end_datetime , and a  Hostname,
+Given the name of a file (with the format described above), an  init_datetime , an end_datetime , and a Hostname,
 returns a list of hostnames connected to the given host during the given period.
 
 ```bash
@@ -49,8 +51,12 @@ Maigen
 ### Hourly task
 
 ```bash
-python3 hourly_task.py log_reader/tests/data/input-file-10000.txt Dekevious Zoeann
+python3 hourly_task.py log_reader/tests/data/input-file-10000.txt <watched_destination_host> <watched_source_host>
 ```
+
+Where:
+- watcher_destination_host is the host whose connected hosts this task will show.
+- watcher_source_host is the host whose connections to other hosts this task will show.
 
 Please, take in account that this script will not output anything if you don't have the correct dates in your log file.
 
