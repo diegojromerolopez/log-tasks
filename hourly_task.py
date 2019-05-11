@@ -1,6 +1,6 @@
 import operator
 import sys
-from log_reader.logio import LogIO, LogQuery
+from log_reader.tasks.hourly_task import HourlyTask
 from datetime import datetime, timedelta
 from collections import defaultdict
 
@@ -29,40 +29,28 @@ if __name__ == '__main__':
     end_date = datetime.now()
     end_timestamp = datetime.timestamp(end_date)
     
-    start_timestamp = 1565647313867
-    end_timestamp = 1565733331098
+    #start_timestamp = 1565647313867
+    #end_timestamp = 1565733331098
 
-    hosts_connected_to_watched_destination_host = set()
-    hosts_receiving_connections_from_watched_source_host = set()
-    outgoing_connection_count_by_host = defaultdict(int)
-    def extractor(log_line):
-        if not (start_timestamp <= log_line.unix_timestamp <= end_timestamp):
-            return
-        if log_line.destination_host == watched_destination_host:
-            hosts_connected_to_watched_destination_host.add(log_line.source_host)
-        if log_line.source_host == watched_source_host:
-            hosts_receiving_connections_from_watched_source_host.add(log_line.destination_host)
-        outgoing_connection_count_by_host[log_line.source_host] += 1
-        
-    log_io = LogIO(file_path)
-    log_io.apply(extractor)
+    task = HourlyTask(file_path, start_timestamp, end_timestamp, watched_destination_host, watched_source_host)
+    result = task.run()
 
-    if len(hosts_connected_to_watched_destination_host) > 0:
+    if len(result.hosts_connected_to_watched_destination_host) > 0:
         print(f"Hosts connected to {watched_destination_host} during the last hour:")
-        for hostname in hosts_connected_to_watched_destination_host:
+        for hostname in result.hosts_connected_to_watched_destination_host:
             print(f"  {hostname}")
     else:
         print(f"No hosts connected to {watched_destination_host} during the last hour.")
 
-    if len(hosts_receiving_connections_from_watched_source_host) > 0:
+    if len(result.hosts_receiving_connections_from_watched_source_host) > 0:
         print(f"Hosts that received connections from {watched_source_host} during the last hour:")
-        for hostname in hosts_receiving_connections_from_watched_source_host:
+        for hostname in result.hosts_receiving_connections_from_watched_source_host:
             print(f"  {hostname}")
     else:
         print(f"No hosts received connections from {watched_source_host} during the last hour.")
 
-    if len(outgoing_connection_count_by_host) > 0:
-        host_with_max_outgoing_connections, max_outgoing_connections = max(outgoing_connection_count_by_host.items(), key=operator.itemgetter(1))
+    if len(result.outgoing_connection_count_by_host) > 0:
+        host_with_max_outgoing_connections, max_outgoing_connections = max(result.outgoing_connection_count_by_host.items(), key=operator.itemgetter(1))
         print(f"Host that generated most connections in the last hour: {host_with_max_outgoing_connections} ({max_outgoing_connections} outgoing connections).")
     else:
         print(f"No hosts generated connections in the last hour.")

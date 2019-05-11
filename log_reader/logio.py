@@ -13,8 +13,7 @@ class LogIO(object):
     
     def apply(self, function):
         """
-        Given a start and end date, and a hostname.
-        returns a list of hostnames connected to the given host during the given period.
+        Apply a function to each line of the log file.
         """
         with open(self.file_path, 'r') as log_file:
             for file_line in log_file:
@@ -31,18 +30,6 @@ class LogIO(object):
         if _datetime_type == datetime:
             return datetime.timestamp(_datetime)
         raise ValueError(f"Invalid type for date interval limit {_datetime_type} ({_datetime})")
-
-class LogQuery(object):
-    def __init__(self, name, condition, transformation):
-        self.name = name
-        self.condition = condition
-        self.transformation = transformation
-
-    def is_fulfilled(self, log_line):
-        return self.condition(log_line)
-
-    def transform(self, log_line):
-        return self.transformation(log_line)
 
 
 class LogLine(object):
