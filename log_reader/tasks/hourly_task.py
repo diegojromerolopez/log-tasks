@@ -36,16 +36,15 @@ class HourlyTask(object):
             :param log_line: LogLine object.
             :return: LogIO.STOP_READ if it must not be following reading the file.
             """
-            # Assuming the log file is sorted by timestamp (as it should be), as we are reading from the end of
-            # the file, reading a log line with a timestamp lesser than the start timestamp means
+            # Assuming the log file is roughly sorted by timestamp (as it should be), as we are reading from the end of
+            # the file, reading a log line with a timestamp (minus an offset) lesser than the start timestamp means
             # the read has been completed.
-            if log_line.unix_timestamp < self.start_timestamp:
+            if log_line.unix_timestamp - LogIO.MAX_TIME_OFFSET < self.start_timestamp:
                 return LogIO.STOP_READ
-            # Technically not needed if the file don't have timestamps greater than now and end_timestamp is now
-            if self.end_timestamp and log_line.unix_timestamp > self.end_timestamp:
-                return
+
             # Update the result
-            result.update(log_line, self.watched_destination_host, self.watched_source_host)
+            if self.start_timestamp <= log_line.unix_timestamp <= self.end_timestamp:
+                result.update(log_line, self.watched_destination_host, self.watched_source_host)
             
         log_io = LogIO(self.file_path)
         log_io.reversed_apply(reversed_extractor)

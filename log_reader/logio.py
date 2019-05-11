@@ -9,6 +9,9 @@ class LogIO(object):
     Reads a log file efficiently (i.e. without storing it fully in memory).
     """
 
+    # The log lines might be out of order by maximum 5 minutes (300 s)
+    MAX_TIME_OFFSET = 300
+
     # Used as a signal to mark that the read must be stopped
     STOP_READ = "STOP READ"
 
