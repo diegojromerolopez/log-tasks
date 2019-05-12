@@ -9,6 +9,10 @@ These two tasks show how to deal with log files in Python3.
 - Python3 version 3.6 or later (you should have it in your OS).
 - Packages included in [requirements.txt](requirements.txt).
 
+## Installation
+
+### Option 1 (recommended): use virtualenv and run the code from the project
+
 You should use a virtualenv or some tool to avoid installing packages in your system.
 
 This will create a python3 virtualenv with the name venv:
@@ -20,7 +24,7 @@ $ virtualenv -p python3 venv
 Activate the virtualenv
 
 ```bash
-$ ./venv/bin/activate
+$ source ./venv/bin/activate
 ```
 
 Run the following command to install requirements:
@@ -30,6 +34,38 @@ Run the following command to install requirements:
 ```
 
 (make sure pip is using python3)
+
+Now you can run the scripts:
+
+- traffic_to_host.py
+- hourly_task.py
+
+from the root directory.
+ 
+
+### Option 2: install python package in dist directory
+
+NOTE: this is not the recommended way of releasing a python package.
+The package should be in a repository like [pypi](https://pypi.org/) but restricted to the members of the team
+(Read [How to Create a Private Python Package Repository](https://www.linode.com/docs/applications/project-management/how-to-create-a-private-python-package-repository/)). 
+
+Create a virtualenv (to not pollute the python system package)
+
+Install the package (it is already commited to github in the **dist** directory):
+
+```bash
+(venv)$ pip3 install dist/log-tasks-1.0.tar.gz
+```
+
+Now you have two new python binaries directory and can run them it by typing:
+
+```bash
+(venv)$ python3 ./venv/bin/traffic_to_host.py
+```
+
+```bash
+(venv)$ python3 ./venv/bin/hourly_task.py
+```
 
 ## Tasks
 

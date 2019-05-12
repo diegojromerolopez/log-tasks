@@ -4,7 +4,7 @@ setup(
     name='log-tasks',
     version='1.0',
     packages=['log_reader', 'log_reader.tasks','log_reader.tests'],
-    scripts=['traffic_to_host', 'hourly_task'],
+    scripts=['traffic_to_host.py', 'hourly_task.py'],
     install_requires=[
         "file-read-backwards==2.0.0",
         "pytest==4.4.2"
