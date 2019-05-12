@@ -137,3 +137,7 @@ $ pytest
 ```
 
 Please note that pytest is a requirement for this project (it is already included in requirements.txt).
+
+## TODO
+- Review naming of modules. It could be improved.
+- Make more tests.
